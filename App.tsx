@@ -15,6 +15,12 @@ export default function App() {
       );
     });
 
+    socket.on("messageSent", (sentMessage) => {
+      console.log(
+        `New Message: ${sentMessage?.message}`
+      );
+    });
+
     return function didUnmount() {
       socket.disconnect();
       socket.removeAllListeners();
