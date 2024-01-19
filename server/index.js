@@ -32,6 +32,19 @@ async function run() {
     const database = client.db('chat');
     const messages = database.collection('messages');
 
+    // open a Change Stream on the "messages" collection
+    changeStream = messages.watch();
+
+    // set up a listener when change events are emitted
+    changeStream.on("change", next => {
+        // process any change event
+        switch (next.operationType) {
+            case 'insert':
+                console.log(next.fullDocument.message);
+                socketIO.emit("messageSent", { message: next.fullDocument.message });
+                break;
+        }
+    });
 
   } catch(e) {
     console.log(e)
