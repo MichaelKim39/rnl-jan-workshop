@@ -1,6 +1,7 @@
 import { StyleSheet, Button, View } from "react-native";
 import socket from "./utils/socket";
 import { useEffect } from "react";
+import { ChatBox } from "./components/ChatBox";
 
 export default function App() {
   const handleEmitWebSocket = () => {
@@ -22,8 +23,8 @@ export default function App() {
   }, [socket]);
 
   return (
-    <View style={styles.container}>
-      <Button title="Press to emit web socket" onPress={handleEmitWebSocket} />
+    <View flex={1}>
+      <ChatBox />
     </View>
   );
 }
